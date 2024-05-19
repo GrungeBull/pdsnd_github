@@ -26,7 +26,7 @@ def get_filters():
 
     while True:
         city = input("Which city would you like to analyze? (Chicago, New York City, Washington): ").lower()
-        if city in cities:
+        if city in CITY_DATA:
             break
         else:
             print("Invalid input. Please enter a valid city name from the list provided.")
