@@ -26,7 +26,7 @@ def get_filters():
 
     while True:
         city = input("Which city would you like to analyze? (Chicago, New York City, Washington): ").lower()
-        if city in cities:
+        if city in CITY_DATA:
             break
         else:
             print("Invalid input. Please enter a valid city name from the list provided.")
@@ -81,10 +81,8 @@ def load_data(city, month, day):
     # Filter by month if applicable
 
     if month != 'all':
-        months = ['january', 'february', 'march', 'april', 'may', 'june']
-        month = months.index(month) + 1
-
-        df = df[df['month'] == month]
+        month = df['Start Time'].dt.month_name().str.lower() == month
+        df = df[month] 
 
     if day != 'all':
         df = df[df['day_of_week'] == day.title()]
@@ -198,10 +196,11 @@ def user_stats(df):
 
     # Display earliest, most recent, and most common year of birth
     
-    if 'Birth Year' in df.columns:
-        earliest_year = int(df['Birth Year'].min())
-        most_recent_year = int(df['Birth Year'].max())
-        most_common_year = int(df['Birth Year'].mode()[0])
+    birth_years = df['Birth Year'].dropna()
+    if not birth_years.empty:
+        earliest_year = int(birth_years.min())
+        most_recent_year = int(birth_years.max())
+        most_common_year = int(birth_years.mode()[0])
         print("\nEarliest Year of Birth:", earliest_year)
         print("Most Recent Year of Birth:", most_recent_year)
         print("Most Common Year of Birth:", most_common_year)
