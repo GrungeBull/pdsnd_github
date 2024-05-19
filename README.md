@@ -18,6 +18,7 @@ This project is part of the Udacity Programming for Data Science course. The goa
 ### Clone the repository:
    ```bash
    git clone https://github.com/GrungeBull/pdsnd_github/tree/documentation
+   ```
 
 ### Follow the prompts:
 
